@@ -1,0 +1,53 @@
+---
+title: "ANA 515 Assignment4"
+author: Ritesh Tikhade
+date: 4/3/2022
+output:
+      html_document:  
+        theme: cerulean
+---
+# Description Of Data:
+I am using data from github (Alcohol Consumption) from the  Five Thirty Eight’s GitHub data repository . (https://github.com/fivethirtyeight/data/tree/master/alcohol-consumption) data shows Where Do People Drink The Most Beer, Wine And Spirits. File is in .csv format has 4.41 KB size.File has total 193 rows which has contry data along with beer, wine, sprit serivings and total liters of pure alcohol 5 column.File has fixed width and going to calculate max, min and mean of beer served and total liter of alcohol from all contries.Namibia max beer serving and Belarus for Total liter of alcohol.
+
+#comment read_csv function is used to read the file #
+
+```{r setup, include = FALSE}
+library(dplyr)
+library(knitr)
+library(bslib)
+library(tidyverse)
+url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv"
+alcohol_data <- read.csv(url)
+```
+
+```{r functions,echo=TRUE}
+alcohol_data  <- rename(alcohol_data ,Beer_Serv = beer_servings)
+stringsAsFactors = FALSE
+head(alcohol_data, 2)
+```
+```
+The data set has `r nrow(alcohol_data)` rows and `r ncol(alcohol_data)` columns.The names of the columns and a brief description of each are in the table below:
+```
+#New Table With three column name along with description.
+```{r ,echo=TRUE} 
+      Alcohol.data1 <- data.frame(
+    contry = c("Afghanistan","Albania","Algeria","Andorra","Angola"),
+    beer_servings = c("0","89","25","245","217"),
+    spirit_servings = c("0","132","0","138","57"),
+    wine_servings =  c("0","54","14","312","45"),
+    Description = c("Total_Beer&wine&sprit serve in Afganistan=0","Total_Beer&wine&sprit serve in Albania=275","Total_Beer&wine&sprit servein Algeria=39","Total_Beer&wine&sprit serve in Andorra=695","Total_Beer&wine&sprit serve in Angola=319"), 
+   stringsAsFactors = FALSE
+)
+# Print the data frame.            
+print(Alcohol.data1) 
+```
+```{r,include = FALSE}
+   data_pick3  <- select(alcohol_data, country, Beer_Serv, total_litres_of_pure_alcohol)
+   stringsAsFactors = FALSE
+# Print the data frame.
+print(data_pick3)
+```
+#Max, Min and Mean value of Beer_serv and Total litres of pure alcohol
+```{r, include = TRUE, echo= TRUE}
+Summarytable <- summary(data_pick3) 
+print(Summarytable)
